@@ -22,15 +22,26 @@ public class HelloController {
 
         Map<String, Object> model = new HashMap<String, Object>();
 
-        OpenWeather weather1 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Aveiro,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
-        OpenWeather weather2 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Lisboa,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
-        OpenWeather weather3 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Porto,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
-        OpenWeather weather4 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Faro,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
+        OpenWeather weatherlist[] = {ScheduledTasks.weather1, ScheduledTasks.weather2, ScheduledTasks.weather3, ScheduledTasks.weather4};
 
-        model.put("w1", weather1.toString());
-        model.put("w2", weather2.toString());
-        model.put("w3", weather3.toString());
-        model.put("w4", weather4.toString());
+        //ordenar em ordem crescente
+        int n = weatherlist.length;
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (weatherlist[j].getMain().getTemp() > weatherlist[j + 1].getMain().getTemp()) {
+                    // swap arr[j+1] and arr[j]
+                    OpenWeather temp = weatherlist[j];
+                    weatherlist[j] = weatherlist[j + 1];
+                    weatherlist[j + 1] = temp;
+                }
+            }
+        }
+
+        model.put("w1", ScheduledTasks.weather1.toString());
+        model.put("w2", ScheduledTasks.weather2.toString());
+        model.put("w3", ScheduledTasks.weather3.toString());
+        model.put("w4", ScheduledTasks.weather4.toString());
+        model.put("hottest", weatherlist[3].getName());
 
         return new ModelAndView(viewName , model);
     }
