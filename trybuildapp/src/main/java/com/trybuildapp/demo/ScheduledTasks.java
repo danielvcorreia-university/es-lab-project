@@ -32,10 +32,10 @@ public class ScheduledTasks {
         weather4 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Faro,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
 
         log.info("Date of update: {}", dateFormat.format(new Date()));
-        log.info(weather1.toString());
-        log.info(weather2.toString());
-        log.info(weather3.toString());
-        log.info(weather4.toString());
+        log.info(weather1.toString() + " Na cidade: " + weather1.getName());
+        log.info(weather2.toString() + " Na cidade: " + weather2.getName());
+        log.info(weather3.toString() + " Na cidade: " + weather3.getName());
+        log.info(weather4.toString() + " Na cidade: " + weather4.getName());
 
 
     }

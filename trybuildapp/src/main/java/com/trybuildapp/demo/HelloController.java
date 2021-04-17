@@ -1,15 +1,18 @@
 package com.trybuildapp.demo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class HelloController {
 
@@ -67,6 +70,18 @@ public class HelloController {
         String returnthis = weather1.toString() + "\n" + weather2.toString() + "\n" + weather3.toString() + "\n" + weather4.toString() + "\n";
 
         return returnthis;
+    }
+
+    @RequestMapping("/pt")
+    public List<OpenWeather> pt() {
+        List<OpenWeather> weatherlist = new ArrayList<OpenWeather>();
+
+        weatherlist.add(ScheduledTasks.weather1);
+        weatherlist.add(ScheduledTasks.weather2);
+        weatherlist.add(ScheduledTasks.weather3);
+        weatherlist.add(ScheduledTasks.weather4);
+
+        return weatherlist;
     }
 
 
