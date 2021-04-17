@@ -18,6 +18,9 @@ public class ScheduledTasks {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private TemperatureRepository repository;
+
     protected static OpenWeather weather1;
     protected static OpenWeather weather2;
     protected static OpenWeather weather3;
@@ -30,6 +33,12 @@ public class ScheduledTasks {
         weather2 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Lisboa,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
         weather3 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Porto,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
         weather4 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Faro,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
+
+        Date now = new Date();
+        repository.save(new Temperature(weather1.getName(), weather1.getMain().getTemp(), now));
+        repository.save(new Temperature(weather2.getName(), weather2.getMain().getTemp(), now));
+        repository.save(new Temperature(weather3.getName(), weather3.getMain().getTemp(), now));
+        repository.save(new Temperature(weather4.getName(), weather4.getMain().getTemp(), now));
 
         log.info("Date of update: {}", dateFormat.format(new Date()));
         log.info(weather1.toString() + " Na cidade: " + weather1.getName());

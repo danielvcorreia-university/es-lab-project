@@ -7,16 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class HelloController {
 
     @Autowired private RestTemplate restTemplate;
+
+    @Autowired
+    private TemperatureRepository repository;
 
 
     @RequestMapping("/greeting")
@@ -83,6 +87,22 @@ public class HelloController {
 
         return weatherlist;
     }
+    @RequestMapping("/lisboa")
+    public List<Temperature> lisboa() throws ParseException {
+        List<Temperature> templist;
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+        
+        templist = repository.findByCitynameAndPublicationDateTimeAfter("Lisboa", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(year+"-"+ month +"-01 00:00"));
+        
+        return templist;
+        
+    }
+
+
 
 
 }
