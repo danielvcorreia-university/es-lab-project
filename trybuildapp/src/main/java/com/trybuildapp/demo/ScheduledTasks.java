@@ -26,7 +26,7 @@ public class ScheduledTasks {
     protected static OpenWeather weather3;
     protected static OpenWeather weather4;
 
-    @Scheduled(fixedRate = 15000)
+    @Scheduled(fixedRate = 900000)
     public void updateWeather() {
 
         weather1 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Aveiro,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);

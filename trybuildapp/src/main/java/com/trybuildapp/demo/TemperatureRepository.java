@@ -10,6 +10,10 @@ public interface TemperatureRepository extends CrudRepository<Temperature, Long>
 
     List<Temperature> findByCitynameAndPublicationDateTimeAfter(String cityname, Date publicationDateTime);
 
+    List<Temperature> findByCitynameAndPublicationDateTimeAfterOrderByTemp(String cityname, Date publicationDateTime);
+
+    List<Temperature> findByPublicationDateTimeAfterOrderByTemp(Date publicationDateTime);
+
     Temperature findById(long id);
 
 }

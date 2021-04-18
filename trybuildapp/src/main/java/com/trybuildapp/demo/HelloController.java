@@ -1,4 +1,6 @@
 package com.trybuildapp.demo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ public class HelloController {
     @Autowired
     private TemperatureRepository repository;
 
+    private static final Logger log = LoggerFactory.getLogger(HelloController.class);
 
     @RequestMapping("/greeting")
     public ModelAndView greeting() {
@@ -87,7 +90,44 @@ public class HelloController {
 
         return weatherlist;
     }
-    @RequestMapping("/lisboa")
+
+    @RequestMapping("/max")
+    public List<Temperature> max() throws ParseException {
+        List<Temperature> templist;
+        List<Temperature> list = new ArrayList<Temperature>();
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+
+        templist = repository.findByPublicationDateTimeAfterOrderByTemp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(year+"-"+ month +"-01 00:00"));
+
+        log.info(templist.get(templist.size()-1).toString());
+        list.add(templist.get(templist.size()-1));
+
+        return list;
+
+    }
+
+    @RequestMapping("/lisboamax")
+    public Temperature lisboamax() throws ParseException {
+        List<Temperature> templist;
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+
+        templist = repository.findByCitynameAndPublicationDateTimeAfterOrderByTemp("Lisboa", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(year+"-"+ month +"-01 00:00"));
+
+        log.info(templist.get(templist.size()-1).toString());
+
+        return templist.get(templist.size()-1);
+
+    }
+
+    @RequestMapping("pt/lisboa")
     public List<Temperature> lisboa() throws ParseException {
         List<Temperature> templist;
 
@@ -102,7 +142,48 @@ public class HelloController {
         
     }
 
+    @RequestMapping("pt/porto")
+    public List<Temperature> porto() throws ParseException {
+        List<Temperature> templist;
 
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
 
+        templist = repository.findByCitynameAndPublicationDateTimeAfter("Porto", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(year+"-"+ month +"-01 00:00"));
 
+        return templist;
+
+    }
+
+    @RequestMapping("pt/aveiro")
+    public List<Temperature> aveiro() throws ParseException {
+        List<Temperature> templist;
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+
+        templist = repository.findByCitynameAndPublicationDateTimeAfter("Aveiro", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(year+"-"+ month +"-01 00:00"));
+
+        return templist;
+
+    }
+
+    @RequestMapping("pt/faro")
+    public List<Temperature> faro() throws ParseException {
+        List<Temperature> templist;
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+
+        templist = repository.findByCitynameAndPublicationDateTimeAfter("Faro", new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(year+"-"+ month +"-01 00:00"));
+
+        return templist;
+
+    }
 }
