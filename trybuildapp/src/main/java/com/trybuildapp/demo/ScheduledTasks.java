@@ -21,12 +21,19 @@ public class ScheduledTasks {
     @Autowired
     private TemperatureRepository repository;
 
+    private final Producer producer;
+
+    @Autowired
+    ScheduledTasks(Producer producer) {
+        this.producer = producer;
+    }
+
     protected static OpenWeather weather1;
     protected static OpenWeather weather2;
     protected static OpenWeather weather3;
     protected static OpenWeather weather4;
 
-    @Scheduled(fixedRate = 900000)
+    @Scheduled(fixedRate = 60000)
     public void updateWeather() {
 
         weather1 = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=Aveiro,pt&units=metric&lang=pt&appid=e16b5d4bba106c51f2add1363a22d257", OpenWeather.class);
@@ -45,6 +52,17 @@ public class ScheduledTasks {
         log.info(weather2.toString() + " Na cidade: " + weather2.getName());
         log.info(weather3.toString() + " Na cidade: " + weather3.getName());
         log.info(weather4.toString() + " Na cidade: " + weather4.getName());
+
+
+
+        if(weather1.getWeather().get(0).getIcon().equals("09n") || weather1.getWeather().get(0).getIcon().equals("10n") || weather1.getWeather().get(0).getIcon().equals("11n") || weather1.getWeather().get(0).getIcon().equals("09d") || weather1.getWeather().get(0).getIcon().equals("10d") || weather1.getWeather().get(0).getIcon().equals("11d")){
+            log.info("Está a chover em " + weather1.getName());
+            this.producer.sendMessage("Está a chover em " + weather1.getName());
+        }
+        else{
+            this.producer.sendMessage("Não está a chover em " + weather1.getName());
+            log.info("Não está a chover em " + weather1.getName());
+        }
 
 
     }
