@@ -56,12 +56,12 @@ public class ScheduledTasks {
 
 
         if(weather1.getWeather().get(0).getIcon().equals("09n") || weather1.getWeather().get(0).getIcon().equals("10n") || weather1.getWeather().get(0).getIcon().equals("11n") || weather1.getWeather().get(0).getIcon().equals("09d") || weather1.getWeather().get(0).getIcon().equals("10d") || weather1.getWeather().get(0).getIcon().equals("11d")){
-            log.info("Está a chover em " + weather1.getName());
-            this.producer.sendMessage("Está a chover em " + weather1.getName());
+            log.info("Está a chover em " + weather1.getName() + " " + dateFormat.format(new Date()));
+            this.producer.sendMessage("Está a chover em " + weather1.getName() + " " + dateFormat.format(new Date()));
         }
         else{
-            this.producer.sendMessage("Não está a chover em " + weather1.getName());
-            log.info("Não está a chover em " + weather1.getName());
+            this.producer.sendMessage("Não está a chover em " + weather1.getName() + " " + dateFormat.format(new Date()));
+            log.info("Não está a chover em " + weather1.getName() + " " + dateFormat.format(new Date()));
         }
 
 

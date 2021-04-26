@@ -49,6 +49,7 @@ public class TrybuildappApplication {
         return builder.build();
     }
 
+    /*
     @Bean
     public CommandLineRunner demo(TemperatureRepository repository) {
         return args -> {
@@ -87,7 +88,9 @@ public class TrybuildappApplication {
             log.info("");
 
         };
-    }
+
+
+    } */
 
 
 
