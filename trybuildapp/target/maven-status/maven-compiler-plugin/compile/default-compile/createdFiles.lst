@@ -1,0 +1,14 @@
+com\trybuildapp\demo\Timer.class
+com\trybuildapp\demo\TemperatureRepository.class
+com\trybuildapp\demo\Clouds.class
+com\trybuildapp\demo\Coord.class
+com\trybuildapp\demo\TrybuildappApplication.class
+com\trybuildapp\demo\Weather.class
+com\trybuildapp\demo\Wind.class
+com\trybuildapp\demo\OpenWeather.class
+com\trybuildapp\demo\ScheduledTasks.class
+com\trybuildapp\demo\Sys.class
+com\trybuildapp\demo\Main.class
+com\trybuildapp\demo\Temperature.class
+com\trybuildapp\demo\HelloController.class
+com\trybuildapp\demo\Producer.class

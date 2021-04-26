@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: com.trybuildapp.demo.TrybuildappApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.862 s <<< FAILURE! - in com.trybuildapp.demo.TrybuildappApplicationTests
+com.trybuildapp.demo.TrybuildappApplicationTests  Time elapsed: 2.861 s  <<< ERROR!
+java.lang.ExceptionInInitializerError
+Caused by: org.apache.kafka.common.KafkaException: Failed to construct kafka producer
+Caused by: org.apache.kafka.common.config.ConfigException: No resolvable bootstrap urls given in bootstrap.servers
+
