@@ -1,6 +1,4 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
-# generate -jar package of module
-RUN ./mvnw package -DskipTests
 # Refer to Maven build -> all -jar files
 ARG JAR_FILE=target/*.jar
 # cp demo-0.0.1-SNAPSHOT.jar /opt/app/app.jar
